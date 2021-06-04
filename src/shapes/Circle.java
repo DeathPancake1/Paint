@@ -1,29 +1,29 @@
 package shapes;
 
-import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.layout.AnchorPane;
 
 public class Circle extends Elliptical {
 
 	@Override
-	void draw() {
+	public void draw(AnchorPane board) {
 		
 		
 	}
 
 	@Override
-	void move(int x, int y) {
+	public void move(int x, int y) {
 		
 		
 	}
 
 	@Override
-	void changeColor() {
+	public void changeColor() {
 		
 		
 	}
 
 	@Override
-	void resize() {
+	public void resize() {
 		
 		
 	}

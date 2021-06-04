@@ -1,29 +1,37 @@
 package ui;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ColorPicker;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
+import shapes.LineSegment;
+import javafx.event.*;
 
-public class Controller implements Initializable{
+public class Controller{
 	@FXML
 	private ColorPicker colorPicker;
 	@FXML
 	private AnchorPane board;
-	GraphicsContext brushTool;
-	@Override
-	public void initialize(URL url,ResourceBundle rb) {
-		brushTool = canvas.getGraphicsContext2D();
-		canvas.setOnMouseDragged(e->{
-			double x =e.getX() - 20/2;
-			double y = e.getY()-20/2;
-			brushTool.setFill(colorPicker.getValue());
-			brushTool.fillRoundRect(x, y, 20, 20, 20, 20);
-		});
+	@FXML
+	private Text error;
+	@FXML
+	private TextField width;
+	@FXML
+	private TextField height;
+	@FXML
+	public void drawLine(ActionEvent e) {
+		boolean success=true;
+		try {
+			Integer.parseInt(width.getText());
+		}
+		catch(Exception e1) {
+			error.setVisible(true);
+			success=false;
+		}
+		if(success) {
+			LineSegment line = new LineSegment(Integer.parseInt(width.getText()),colorPicker.getValue());
+			line.draw(board);
+		}
 	}
 }

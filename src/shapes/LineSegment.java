@@ -1,33 +1,36 @@
 package shapes;
 
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 
 public class LineSegment extends Polygon{
-	public LineSegment() {
+	public LineSegment(int width,Color color) {
 		this.numberOfEdges=1;
-		this.width=50;
-		line()
+		this.width=width;
+		this.color=color;
 	}
 	@Override
-	void draw(AnchorPane board) {
-		LineSegment line=new LineSegment();
+	public void draw(AnchorPane board) {
+		Line line = new Line(positionX-width/2,positionY,positionX+width/2,positionY);
+		line.setStroke(color);
 		board.getChildren().add(line);
 	}
 
 	@Override
-	void move(int x, int y) {
+	public void move(int x, int y) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	void changeColor() {
+	public void changeColor() {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	void resize() {
+	public void resize() {
 		// TODO Auto-generated method stub
 		
 	}
