@@ -8,13 +8,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ColorPicker;
+import javafx.scene.layout.AnchorPane;
 
 public class Controller implements Initializable{
 	@FXML
 	private ColorPicker colorPicker;
 	@FXML
-	private Canvas canvas;
-	
+	private AnchorPane board;
 	GraphicsContext brushTool;
 	@Override
 	public void initialize(URL url,ResourceBundle rb) {
