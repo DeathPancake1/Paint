@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ColorPicker?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.Pane?>
 
-<BorderPane fx:id="Border" prefHeight="695.0" prefWidth="1171.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="Border" prefHeight="695.0" prefWidth="1171.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.Controller">
    <left>
       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="695.0" prefWidth="198.0" BorderPane.alignment="CENTER">
          <children>
@@ -24,8 +24,8 @@
                         <Button layoutX="113.0" layoutY="61.0" mnemonicParsing="false" text="Text" />
                         <Button layoutX="15.0" layoutY="61.0" mnemonicParsing="false" text="Color" />
                         <Button layoutX="107.0" layoutY="15.0" mnemonicParsing="false" text="Resize" />
-                        <Button layoutX="14.0" layoutY="15.0" mnemonicParsing="false" text="Move" />
-                        <ColorPicker layoutX="22.0" layoutY="244.0" />
+                        <Button fx:id="zobr" layoutX="14.0" layoutY="15.0" mnemonicParsing="false" text="Move" />
+                        <ColorPicker fx:id="colorPicker" layoutX="22.0" layoutY="244.0" />
                      </children>
                   </AnchorPane>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="358.0" prefWidth="229.0">
@@ -40,6 +40,6 @@
       </AnchorPane>
    </left>
    <center>
-      <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+      <Canvas fx:id="canvas" height="654.0" width="945.0" BorderPane.alignment="CENTER" />
    </center>
 </BorderPane>

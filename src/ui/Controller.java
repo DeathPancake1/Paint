@@ -1,15 +1,29 @@
 package ui;
 
-import javafx.fxml.FXML;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.shape.Circle;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class Controller {
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.ColorPicker;
+
+public class Controller implements Initializable{
 	@FXML
-	Circle circle;
+	private ColorPicker colorPicker;
 	@FXML
-    private void printHelloWorld(MouseEvent event) {
-		circle=(Circle)event.getSource();
-        circle.setFill(javafx.scene.paint.Color.RED);
-    }
+	private Canvas canvas;
+	
+	GraphicsContext brushTool;
+	@Override
+	public void initialize(URL url,ResourceBundle rb) {
+		brushTool = canvas.getGraphicsContext2D();
+		canvas.setOnMouseDragged(e->{
+			double x =e.getX() - 20/2;
+			double y = e.getY()-20/2;
+			brushTool.setFill(colorPicker.getValue());
+			brushTool.fillRoundRect(x, y, 20, 20, 20, 20);
+		});
+	}
 }
