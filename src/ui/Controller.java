@@ -210,7 +210,9 @@ public class Controller{
 	public void undo(ActionEvent event) {
 		System.out.println(prev);
 		System.out.println(current);
-		board.getChildren().clear();
-		board.getChildren().addAll(prev);
+		board.getChildren().setAll(prev);
+	}
+	public void redo(ActionEvent event) {
+		board.getChildren().setAll(current);
 	}
 }
