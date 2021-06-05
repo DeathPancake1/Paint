@@ -1,6 +1,7 @@
 package ui;
 
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.TextField;
@@ -10,9 +11,15 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import shapes.Circle;
 import shapes.LineSegment;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import javafx.event.*;
 
 public class Controller{
+	public static List<Node> current=new ArrayList<Node>();
+	public static List<Node> prev =new ArrayList<Node>();
 	@FXML
 	private Button move,color,resize,draw,circle,line,rectangle;
 	@FXML
@@ -52,6 +59,10 @@ public class Controller{
 				drawLine(e.getX(),e.getY());
 			}
 		}
+		prev.clear();
+		prev.addAll(current);
+		current.clear();
+		current.addAll(board.getChildren());
 	}
 	public void drawCircle(double x,double y) {
 		Circle circle = new Circle(x,y,Integer.parseInt(width.getText()),colorPicker.getValue());
@@ -92,6 +103,10 @@ public class Controller{
 			line.setDisable(true);
 			break;
 		}
+		prev.clear();
+		prev.addAll(current);
+		current.clear();
+		current.addAll(board.getChildren());
 	}
 	@FXML
 	public void selectMove(ActionEvent event) {
@@ -155,7 +170,10 @@ public class Controller{
 			selectedHeight=Integer.parseInt(height.getText());
 		}
 	}
-	public void Delete(ActionEvent event) {
-		
+	public void undo(ActionEvent event) {
+		System.out.println(prev);
+		System.out.println(current);
+		board.getChildren().clear();
+		board.getChildren().addAll(prev);
 	}
 }
