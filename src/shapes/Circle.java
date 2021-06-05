@@ -40,8 +40,10 @@ public class Circle extends Elliptical {
 
 	@Override
 	public void resize(MouseEvent event) {
-		if(ui.Controller.selectedWidth<=350)
-			circle.setRadius(ui.Controller.selectedWidth);
+		if(ui.Controller.selectedWidth<=350) {
+			radius=ui.Controller.selectedWidth;
+			circle.setRadius(radius);
+		}
 	}
 	@Override
 	public void processAction(MouseEvent event) {

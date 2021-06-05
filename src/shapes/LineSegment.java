@@ -41,8 +41,9 @@ public class LineSegment extends Polygon{
 
 	@Override
 	public void resize(MouseEvent event) {
-		line.setStartX(line.getStartX()-ui.Controller.selectedWidth/2);
-		line.setEndX(line.getEndX()+ui.Controller.selectedWidth/2);
+		width=ui.Controller.selectedWidth;
+		line.setStartX(line.getStartX()-width/2);
+		line.setEndX(line.getEndX()+width/2);
 	}
 	@Override
 	public void processAction(MouseEvent event) {

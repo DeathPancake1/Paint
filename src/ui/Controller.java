@@ -8,9 +8,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Shape;
 import javafx.scene.text.Text;
 import shapes.Circle;
 import shapes.LineSegment;
+import shapes.Rectangle;
+import shapes.Square;
+import shapes.Triangle;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +25,7 @@ public class Controller{
 	public static List<Node> current=new ArrayList<Node>();
 	public static List<Node> prev =new ArrayList<Node>();
 	@FXML
-	private Button move,color,resize,draw,circle,line,rectangle;
+	private Button move,color,resize,draw,circle,line,rectangle,triangle,square;
 	@FXML
 	private ColorPicker colorPicker;
 	@FXML
@@ -53,10 +57,16 @@ public class Controller{
 				drawCircle(e.getX(),e.getY());
 			}
 			else if(state==5) {
-				
+				drawRectangle(e.getX(),e.getY());
 			}
 			else if(state==6) {
 				drawLine(e.getX(),e.getY());
+			}
+			else if(state==7) {
+				drawTriangle(e.getX(),e.getY());
+			}
+			else if(state==8) {
+				drawSquare(e.getX(),e.getY());
 			}
 		}
 		prev.clear();
@@ -67,6 +77,18 @@ public class Controller{
 	public void drawCircle(double x,double y) {
 		Circle circle = new Circle(x,y,Integer.parseInt(width.getText()),colorPicker.getValue());
 		circle.draw(board);
+	}
+	public void drawRectangle(double x,double y) {
+		Rectangle rectangle= new Rectangle(x,y,Integer.parseInt(width.getText()),Integer.parseInt(height.getText()),colorPicker.getValue());
+		rectangle.draw(board);
+	}
+	public void drawSquare(double x,double y) {
+		Square square= new Square(x,y,Integer.parseInt(width.getText()),colorPicker.getValue());
+		square.draw(board);
+	}
+	public void drawTriangle(double x,double y) {
+		Triangle triangle= new Triangle(x,y,Integer.parseInt(width.getText()),Integer.parseInt(height.getText()),colorPicker.getValue());
+		triangle.draw(board);
 	}
 	public void drawLine(double x,double y) {
 		LineSegment line = new LineSegment(x,y,Integer.parseInt(width.getText()),colorPicker.getValue());
@@ -80,6 +102,8 @@ public class Controller{
 		circle.setDisable(false);
 		rectangle.setDisable(false);
 		line.setDisable(false);
+		square.setDisable(false);
+		triangle.setDisable(false);
 		switch(x) {
 		case 0:
 			move.setDisable(true);
@@ -102,6 +126,11 @@ public class Controller{
 		case 6:
 			line.setDisable(true);
 			break;
+		case 7:
+			triangle.setDisable(true);
+			break;
+		case 8:
+			square.setDisable(true);
 		}
 		prev.clear();
 		prev.addAll(current);
@@ -137,6 +166,14 @@ public class Controller{
 	}
 	public void selectRectangle(ActionEvent event) {
 		state=5;
+		selectButton(state);
+	}
+	public void selectTriangle(ActionEvent event) {
+		state = 7;
+		selectButton(state);
+	}
+	public void selectSquare(ActionEvent event) {
+		state=8;
 		selectButton(state);
 	}
 	public void newColor(ActionEvent event) {
