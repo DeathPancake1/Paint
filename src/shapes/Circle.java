@@ -40,8 +40,7 @@ public class Circle extends Elliptical {
 
 	@Override
 	public void changeColor(MouseEvent event) {
-		color=(Color) circle.getFill();
-		Color oldColor=color;
+		Color oldColor=(Color) circle.getFill();
 		ui.Controller.oldAction[0]=circle;
 		ui.Controller.oldAction[1]="color";
 		ui.Controller.oldAction[2]= oldColor;

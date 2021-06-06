@@ -11,6 +11,7 @@ public class Square extends Polygon{
 		positionY=y;
 		this.numberOfEdges=4;
 		this.width=width;
+		this.height=width;
 		this.color=color;
 	}
 	@Override
@@ -20,6 +21,7 @@ public class Square extends Polygon{
 		board.getChildren().add(square);
 		square.setOnMouseClicked(event->processAction(event));
 		square.setOnMouseDragged(event->processAction(event));
+		ui.Controller.oldAction[1]="draw";
 	}
 
 	@Override
@@ -30,7 +32,7 @@ public class Square extends Polygon{
 		ui.Controller.oldAction[1]="move";
 		ui.Controller.oldX=posX;
 		ui.Controller.oldY=posY;
-		if(event.getX()>width/2&&event.getX()<1000-width/2&&event.getY()<700-width/2&&event.getY()>width/2) {
+		if(event.getX()>width/2&&event.getX()<1000-width/2&&event.getY()<700-height/2&&event.getY()>height/2) {
 			square.setX(event.getX()-width/2);
 			square.setY(event.getY()-width/2);
 		}

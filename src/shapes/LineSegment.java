@@ -21,6 +21,7 @@ public class LineSegment extends Polygon{
 		board.getChildren().add(line);
 		line.setOnMouseClicked(event->processAction(event));
 		line.setOnMouseDragged(event->processAction(event));
+		ui.Controller.oldAction[1]="draw";
 	}
 
 	@Override

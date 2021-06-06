@@ -1,5 +1,7 @@
 package shapes;
 
+import java.util.Arrays;
+
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -23,6 +25,7 @@ public class Triangle extends Polygon{
 		board.getChildren().add(triangle);
 		triangle.setOnMouseClicked(event->processAction(event));
 		triangle.setOnMouseDragged(event->processAction(event));
+		ui.Controller.oldAction[1]="draw";
 	}
 
 	@Override
@@ -55,6 +58,7 @@ public class Triangle extends Polygon{
 	public void resize(MouseEvent event) {
 		width=points[2]-points[4];
 		height=points[1]-points[3];
+		ui.Controller.oldAction[2]=points;
 		ui.Controller.oldAction[0]=triangle;
 		ui.Controller.oldAction[1]="resize";
 		ui.Controller.oldX=width;
