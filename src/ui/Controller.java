@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
+import javafx.scene.control.Labeled;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -101,7 +102,8 @@ public class Controller{
 		LineSegment line = new LineSegment(x,y,Integer.parseInt(width.getText()),colorPicker.getValue());
 		line.draw(board);
 	}
-	public void selectButton(int x) {
+	public void selectButton(ActionEvent event) {
+		String x=((Button) event.getSource()).getText();
 		move.setDisable(false);
 		resize.setDisable(false);
 		color.setDisable(false);
@@ -112,72 +114,44 @@ public class Controller{
 		square.setDisable(false);
 		triangle.setDisable(false);
 		switch(x) {
-		case 0:
+		case "Move":
+			state=0;
 			move.setDisable(true);
 			break;
-		case 1:
+		case "Resize":
+			state=1;
+			updateWidth();
+			updateHeight();
 			resize.setDisable(true);
 			break;
-		case 2:
+		case "Color":
+			state=2;
 			color.setDisable(true);
 			break;
-		case 3:
+		case "Draw":
+			state=3;
 			draw.setDisable(true);
 			break;
-		case 4:
+		case "Circle":
+			state=4;
 			circle.setDisable(true);
 			break;
-		case 5:
+		case "Rectangle":
+			state=5;
 			rectangle.setDisable(true);
 			break;
-		case 6:
+		case "Line":
+			state=6;
 			line.setDisable(true);
 			break;
-		case 7:
+		case "Triangle":
+			state=7;
 			triangle.setDisable(true);
 			break;
-		case 8:
+		case "Square":
+			state=8;
 			square.setDisable(true);
 		}
-	}
-	@FXML
-	public void selectMove(ActionEvent event) {
-		state=0;
-		selectButton(state);
-	}
-	public void selectColor(ActionEvent event) {
-		state=2;
-		selectButton(state);
-	}
-	public void selectResize(ActionEvent event) {
-		state=1;
-		updateWidth();
-		updateHeight();
-		selectButton(state);
-	}
-	public void selectDraw(ActionEvent event) {
-		state=3;
-		selectButton(state);
-	}
-	public void selectCircle(ActionEvent event) {
-		state=4;
-		selectButton(state);
-	}
-	public void selectLine(ActionEvent event) {
-		state=6;
-		selectButton(state);
-	}
-	public void selectRectangle(ActionEvent event) {
-		state=5;
-		selectButton(state);
-	}
-	public void selectTriangle(ActionEvent event) {
-		state = 7;
-		selectButton(state);
-	}
-	public void selectSquare(ActionEvent event) {
-		state=8;
-		selectButton(state);
 	}
 	public void newColor(ActionEvent event) {
 		selectedColor=colorPicker.getValue();
