@@ -8,6 +8,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Line;
 import javafx.scene.shape.Shape;
 import javafx.scene.text.Text;
 import shapes.Circle;
@@ -40,6 +42,9 @@ public class Controller{
 	public static int selectedHeight;
 	public static int state=0;
 	public static Color selectedColor;
+	public static Object[] oldAction=new Object[4];
+	public static double oldX;
+	public static double oldY;
 	@FXML
 	public void draw(MouseEvent e) {
 		boolean success=true;
@@ -132,10 +137,6 @@ public class Controller{
 		case 8:
 			square.setDisable(true);
 		}
-		prev.clear();
-		prev.addAll(current);
-		current.clear();
-		current.addAll(board.getChildren());
 	}
 	@FXML
 	public void selectMove(ActionEvent event) {
@@ -208,9 +209,69 @@ public class Controller{
 		}
 	}
 	public void undo(ActionEvent event) {
-		System.out.println(prev);
-		System.out.println(current);
-		board.getChildren().setAll(prev);
+		if(oldAction[1].equals("draw")&&!prev.isEmpty()) {
+			board.getChildren().setAll(prev);
+		}
+		else if(oldAction[1].equals("draw")){
+			board.getChildren().clear();
+		}
+		for(Object item : board.getChildren()) {
+			if(item.equals(oldAction[0])) {
+				if(item instanceof javafx.scene.shape.Circle) {
+					if(oldAction[1].equals("color")) {
+						((Shape) item).setFill((Color) oldAction[2]);
+					}
+					else if(oldAction[1].equals("resize")) {
+						((javafx.scene.shape.Circle) item).setRadius((Double)oldX);
+					}
+					else if(oldAction[1].equals("move")) {
+						((javafx.scene.shape.Circle) item).setCenterX((Double)oldX);
+						((javafx.scene.shape.Circle) item).setCenterY((Double)oldY);
+					}
+				}
+				else if(item instanceof javafx.scene.shape.Rectangle) {
+					if(oldAction[1].equals("color")) {
+						((Shape) item).setFill((Color) oldAction[2]);
+					}
+					else if(oldAction[1].equals("resize")) {
+						((javafx.scene.shape.Rectangle) item).setWidth((Double)oldX);
+						((javafx.scene.shape.Rectangle) item).setHeight((Double)oldY);
+					}
+					else if(oldAction[1].equals("move")) {
+						((javafx.scene.shape.Rectangle) item).setX((Double)oldX);
+						((javafx.scene.shape.Rectangle) item).setY((Double)oldY);
+					}
+				}
+				else if(item instanceof javafx.scene.shape.Line) {
+					if(oldAction[1].equals("color")) {
+						((Shape) item).setStroke((Color) oldAction[2]);
+					}
+					else if(oldAction[1].equals("resize")) {
+						((javafx.scene.shape.Line) item).setStartX(((Line) item).getStartX()+oldX/2);
+						((javafx.scene.shape.Line) item).setEndX(((Line) item).getEndX()-oldX/2);
+					}
+					else if(oldAction[1].equals("move")) {
+						//((javafx.scene.shape.Line) item).setX((Double)oldAction[2]);
+						//((javafx.scene.shape.Line) item).setY((Double)oldAction[3]);
+					}
+				}
+				else if(item instanceof javafx.scene.shape.Polygon) {
+					if(oldAction[1].equals("color")) {
+						((Shape) item).setFill((Color) oldAction[2]);
+					}
+					else if(oldAction[1].equals("resize")) {
+						((javafx.scene.shape.Polygon) item).getPoints().setAll(
+								((javafx.scene.shape.Polygon) item).getPoints().get(0),((javafx.scene.shape.Polygon) item).getPoints().get(1)+oldY/2,
+								((javafx.scene.shape.Polygon) item).getPoints().get(2)+oldX/2,((javafx.scene.shape.Polygon) item).getPoints().get(3)-oldY/2,
+								((javafx.scene.shape.Polygon) item).getPoints().get(4)-oldX/2,((javafx.scene.shape.Polygon) item).getPoints().get(5)-oldY/2);
+					}
+					else if(oldAction[1].equals("move")) {
+						//((javafx.scene.shape.Polygon) item).setX((Double)oldAction[2]);
+						//((javafx.scene.shape.Polygon) item).setY((Double)oldAction[3]);
+					}
+				}
+			}
+		}
 	}
 	public void redo(ActionEvent event) {
 		board.getChildren().setAll(current);

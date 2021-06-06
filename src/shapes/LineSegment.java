@@ -25,6 +25,12 @@ public class LineSegment extends Polygon{
 
 	@Override
 	public void move(MouseEvent event) {
+		double posX,posY;
+		posX=positionX;posY=positionY;
+		ui.Controller.oldAction[0]=line;
+		ui.Controller.oldAction[1]="move";
+		ui.Controller.oldAction[2]= posX;
+		ui.Controller.oldAction[3]= posY;
 		if(event.getX()>width/2&&event.getX()<1000-width/2&&event.getY()<700&&event.getY()>0) {
 			line.setStartX(event.getX()-width/2);
 			line.setStartY(event.getY());
@@ -35,12 +41,21 @@ public class LineSegment extends Polygon{
 
 	@Override
 	public void changeColor(MouseEvent event) {
+		color=(Color) line.getStroke();
+		Color oldColor=color;
+		ui.Controller.oldAction[0]=line;
+		ui.Controller.oldAction[1]="color";
+		ui.Controller.oldAction[2]= oldColor;
 		color=ui.Controller.selectedColor;
 		line.setStroke(color);
 	}
 
 	@Override
 	public void resize(MouseEvent event) {
+		width=line.getEndX()-line.getStartX();
+		ui.Controller.oldAction[0]=line;
+		ui.Controller.oldAction[1]="resize";
+		ui.Controller.oldX=width;
 		width=ui.Controller.selectedWidth;
 		line.setStartX(line.getStartX()-width/2);
 		line.setEndX(line.getEndX()+width/2);

@@ -24,6 +24,12 @@ public class Square extends Polygon{
 
 	@Override
 	public void move(MouseEvent event) {
+		double posX,posY;
+		posX=positionX;posY=positionY;
+		ui.Controller.oldAction[0]=square;
+		ui.Controller.oldAction[1]="move";
+		ui.Controller.oldX=posX;
+		ui.Controller.oldY=posY;
 		if(event.getX()>width/2&&event.getX()<1000-width/2&&event.getY()<700-width/2&&event.getY()>width/2) {
 			square.setX(event.getX()-width/2);
 			square.setY(event.getY()-width/2);
@@ -32,12 +38,21 @@ public class Square extends Polygon{
 
 	@Override
 	public void changeColor(MouseEvent event) {
+		color=(Color) square.getFill();
+		Color oldColor=color;
+		ui.Controller.oldAction[0]=square;
+		ui.Controller.oldAction[1]="color";
+		ui.Controller.oldAction[2]= oldColor;
 		color=ui.Controller.selectedColor;
 		square.setFill(color);
 	}
 
 	@Override
 	public void resize(MouseEvent event) {
+		ui.Controller.oldAction[0]=square;
+		ui.Controller.oldAction[1]="resize";
+		ui.Controller.oldX=square.getWidth();
+		ui.Controller.oldY=square.getHeight();
 		width=ui.Controller.selectedWidth;
 		height=ui.Controller.selectedWidth;
 		square.setWidth(width);
