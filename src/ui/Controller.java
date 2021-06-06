@@ -214,8 +214,10 @@ public class Controller{
 						((javafx.scene.shape.Circle) item).setRadius((Double)oldX);
 					}
 					else if(oldAction[1].equals("move")) {
-						//((javafx.scene.shape.Circle) item).setCenterX((Double)oldX);
-						//((javafx.scene.shape.Circle) item).setCenterY((Double)oldY);
+						newX=((javafx.scene.shape.Circle) item).getCenterX();
+						newY=((javafx.scene.shape.Circle) item).getCenterY();
+						((javafx.scene.shape.Circle) item).setCenterX((Double)oldX);
+						((javafx.scene.shape.Circle) item).setCenterY((Double)oldY);
 					}
 				}
 				else if(item instanceof javafx.scene.shape.Rectangle) {
@@ -261,8 +263,13 @@ public class Controller{
 						((Shape) item).setFill((Color) oldAction[2]);
 					}
 					else if(oldAction[1].equals("resize")) {
-						((javafx.scene.shape.Polygon) item).getPoints().setAll((Double[]) oldAction[2]);
-						((javafx.scene.shape.Polygon) item).getPoints();
+						newAction[1]="resize";
+						newAction[2]=new Double[] {
+								((javafx.scene.shape.Polygon) item).getPoints().get(0),((javafx.scene.shape.Polygon) item).getPoints().get(1),
+								((javafx.scene.shape.Polygon) item).getPoints().get(2),((javafx.scene.shape.Polygon) item).getPoints().get(3),
+								((javafx.scene.shape.Polygon) item).getPoints().get(4),((javafx.scene.shape.Polygon) item).getPoints().get(5)};
+						((javafx.scene.shape.Polygon) item).getPoints().clear();
+						((javafx.scene.shape.Polygon) item).getPoints().setAll((Double [])oldAction[2]);
 					}
 					else if(oldAction[1].equals("move")) {
 						//((javafx.scene.shape.Polygon) item).setX((Double)oldAction[2]);
@@ -348,8 +355,13 @@ public class Controller{
 						((Shape) item).setFill((Color) newAction[2]);
 					}
 					else if(newAction[1].equals("resize")) {
-						((javafx.scene.shape.Polygon) item).getPoints().setAll((Double[]) newAction[2]);
-						((javafx.scene.shape.Polygon) item).getPoints();
+						oldAction[1]="resize";
+						oldAction[2]=new Double[] {
+								((javafx.scene.shape.Polygon) item).getPoints().get(0),((javafx.scene.shape.Polygon) item).getPoints().get(1),
+								((javafx.scene.shape.Polygon) item).getPoints().get(2),((javafx.scene.shape.Polygon) item).getPoints().get(3),
+								((javafx.scene.shape.Polygon) item).getPoints().get(4),((javafx.scene.shape.Polygon) item).getPoints().get(5)};
+						((javafx.scene.shape.Polygon) item).getPoints().clear();
+						((javafx.scene.shape.Polygon) item).getPoints().setAll((Double [])newAction[2]);
 					}
 					else if(oldAction[1].equals("move")) {
 						//((javafx.scene.shape.Polygon) item).setX((Double)oldAction[2]);

@@ -58,7 +58,7 @@ public class Triangle extends Polygon{
 	public void resize(MouseEvent event) {
 		width=points[2]-points[4];
 		height=points[1]-points[3];
-		ui.Controller.oldAction[2]=points;
+		ui.Controller.oldAction[2]=new Double[] {points[0],points[1],points[2],points[3],points[4],points[5]};
 		ui.Controller.oldAction[0]=triangle;
 		ui.Controller.oldAction[1]="resize";
 		ui.Controller.oldX=width;
