@@ -42,9 +42,9 @@ public class Controller{
 	public static int selectedWidth;
 	public static int selectedHeight;
 	public static int state=0;
-	public static Color selectedColor;
-	public static Object[] oldAction=new Object[]{"","","",""};
-	public static Object[] newAction=new Object[] {"","","",""};
+	public static Color selectedColor=Color.WHITE;
+	public static Object[] oldAction=new Object[]{"","","","","",""};
+	public static Object[] newAction=new Object[] {"","","","","",""};
 	public static double oldX;
 	public static double oldY;
 	public static double newX,newY;
@@ -60,22 +60,25 @@ public class Controller{
 			error.setVisible(true);
 			success=false;
 		}
-		if(success&&e.getX()>f&&e.getX()<1000-f&&e.getY()>f&&e.getY()<700-f) {
-			if(state==4) {
+		if(state==4) {
+			if(success&&e.getX()>f&&e.getX()<1000-f&&e.getY()>f&&e.getY()<700-f)
 				drawCircle(e.getX(),e.getY());
-			}
-			else if(state==5) {
+		}
+		else if(state==5) {
+			if(e.getX()>f/2&&e.getX()<1000-m/2&&e.getY()<700-f/2&&e.getY()>m/2)
 				drawRectangle(e.getX(),e.getY());
-			}
-			else if(state==6) {
+		}
+		else if(state==6) {
+			if(e.getX()>f/2&&e.getX()<1000-f/2&&e.getY()<700&&e.getY()>0)
 				drawLine(e.getX(),e.getY());
-			}
-			else if(state==7) {
+		}
+		else if(state==7) {
+			if(e.getX()>f/2&&e.getX()<1000-m/2&&e.getY()<700-f/2&&e.getY()>m/2)
 				drawTriangle(e.getX(),e.getY());
-			}
-			else if(state==8) {
+		}
+		else if(state==8) {
+			if(e.getX()>f/2&&e.getX()<1000-f/2&&e.getY()<700-f/2&&e.getY()>f/2)
 				drawSquare(e.getX(),e.getY());
-			}
 		}
 		prev.clear();
 		prev.addAll(current);
@@ -214,6 +217,7 @@ public class Controller{
 						((javafx.scene.shape.Circle) item).setRadius((Double)oldX);
 					}
 					else if(oldAction[1].equals("move")) {
+						newAction[1]="move";
 						newX=((javafx.scene.shape.Circle) item).getCenterX();
 						newY=((javafx.scene.shape.Circle) item).getCenterY();
 						((javafx.scene.shape.Circle) item).setCenterX((Double)oldX);
@@ -234,8 +238,11 @@ public class Controller{
 						((javafx.scene.shape.Rectangle) item).setHeight((Double)oldY);
 					}
 					else if(oldAction[1].equals("move")) {
-						//((javafx.scene.shape.Rectangle) item).setX((Double)oldX);
-						//((javafx.scene.shape.Rectangle) item).setY((Double)oldY);
+						newAction[1]="move";
+						newX=((javafx.scene.shape.Rectangle) item).getX();
+						newY=((javafx.scene.shape.Rectangle) item).getY();
+						((javafx.scene.shape.Rectangle) item).setX((Double)oldX);
+						((javafx.scene.shape.Rectangle) item).setY((Double)oldY);
 					}
 				}
 				else if(item instanceof javafx.scene.shape.Line) {
@@ -252,8 +259,13 @@ public class Controller{
 						((javafx.scene.shape.Line) item).setEndX(((Line) item).getEndX()-oldX/2);
 					}
 					else if(oldAction[1].equals("move")) {
-						//((javafx.scene.shape.Line) item).setX((Double)oldAction[2]);
-						//((javafx.scene.shape.Line) item).setY((Double)oldAction[3]);
+						newAction[1]="move";newAction[2]=((javafx.scene.shape.Line) item).getStartX();
+						newAction[3]=((javafx.scene.shape.Line) item).getStartY();newAction[4]=((javafx.scene.shape.Line) item).getEndX();
+						newAction[5]=((javafx.scene.shape.Line) item).getEndY();
+						((javafx.scene.shape.Line) item).setStartX((Double)oldAction[2]);
+						((javafx.scene.shape.Line) item).setStartY((Double)oldAction[3]);
+						((javafx.scene.shape.Line) item).setEndX((Double)oldAction[4]);
+						((javafx.scene.shape.Line) item).setEndY((Double)oldAction[5]);
 					}
 				}
 				else if(item instanceof javafx.scene.shape.Polygon) {
@@ -272,8 +284,13 @@ public class Controller{
 						((javafx.scene.shape.Polygon) item).getPoints().setAll((Double [])oldAction[2]);
 					}
 					else if(oldAction[1].equals("move")) {
-						//((javafx.scene.shape.Polygon) item).setX((Double)oldAction[2]);
-						//((javafx.scene.shape.Polygon) item).setY((Double)oldAction[3]);
+						newAction[1]="move";
+						newAction[2]=new Double[] {
+								((javafx.scene.shape.Polygon) item).getPoints().get(0),((javafx.scene.shape.Polygon) item).getPoints().get(1),
+								((javafx.scene.shape.Polygon) item).getPoints().get(2),((javafx.scene.shape.Polygon) item).getPoints().get(3),
+								((javafx.scene.shape.Polygon) item).getPoints().get(4),((javafx.scene.shape.Polygon) item).getPoints().get(5)};
+						((javafx.scene.shape.Polygon) item).getPoints().clear();
+						((javafx.scene.shape.Polygon) item).getPoints().setAll((Double [])oldAction[2]);
 					}
 				}
 			}
@@ -308,8 +325,10 @@ public class Controller{
 						((javafx.scene.shape.Circle) item).setRadius((Double)newX);
 					}
 					else if(newAction[1].equals("move")) {
-						//((javafx.scene.shape.Circle) item).setCenterX((Double)oldX);
-						//((javafx.scene.shape.Circle) item).setCenterY((Double)oldY);
+						oldX=((javafx.scene.shape.Circle) item).getCenterX();
+						oldY=((javafx.scene.shape.Circle) item).getCenterY();
+						((javafx.scene.shape.Circle) item).setCenterX((Double)newX);
+						((javafx.scene.shape.Circle) item).setCenterY((Double)newY);
 					}
 				}
 				else if(item instanceof javafx.scene.shape.Rectangle) {
@@ -326,8 +345,11 @@ public class Controller{
 						((javafx.scene.shape.Rectangle) item).setHeight((Double)newY);
 					}
 					else if(newAction[1].equals("move")) {
-						//((javafx.scene.shape.Rectangle) item).setX((Double)oldX);
-						//((javafx.scene.shape.Rectangle) item).setY((Double)oldY);
+						oldAction[1]="move";
+						oldX=((javafx.scene.shape.Rectangle) item).getX();
+						oldY=((javafx.scene.shape.Rectangle) item).getY();
+						((javafx.scene.shape.Rectangle) item).setX((Double)newX);
+						((javafx.scene.shape.Rectangle) item).setY((Double)newY);
 					}
 				}
 				else if(item instanceof javafx.scene.shape.Line) {
@@ -344,8 +366,13 @@ public class Controller{
 						((javafx.scene.shape.Line) item).setEndX(((Line) item).getEndX()-newX/2);
 					}
 					else if(newAction[1].equals("move")) {
-						//((javafx.scene.shape.Line) item).setX((Double)oldAction[2]);
-						//((javafx.scene.shape.Line) item).setY((Double)oldAction[3]);
+						oldAction[1]="move";oldAction[2]=((javafx.scene.shape.Line) item).getStartX();
+						oldAction[3]=((javafx.scene.shape.Line) item).getStartY();oldAction[4]=((javafx.scene.shape.Line) item).getEndX();
+						oldAction[5]=((javafx.scene.shape.Line) item).getEndY();
+						((javafx.scene.shape.Line) item).setStartX((Double)newAction[2]);
+						((javafx.scene.shape.Line) item).setStartY((Double)newAction[3]);
+						((javafx.scene.shape.Line) item).setEndX((Double)newAction[4]);
+						((javafx.scene.shape.Line) item).setEndY((Double)newAction[5]);
 					}
 				}
 				else if(item instanceof javafx.scene.shape.Polygon) {
@@ -364,8 +391,13 @@ public class Controller{
 						((javafx.scene.shape.Polygon) item).getPoints().setAll((Double [])newAction[2]);
 					}
 					else if(oldAction[1].equals("move")) {
-						//((javafx.scene.shape.Polygon) item).setX((Double)oldAction[2]);
-						//((javafx.scene.shape.Polygon) item).setY((Double)oldAction[3]);
+						oldAction[1]="move";
+						oldAction[2]=new Double[] {
+								((javafx.scene.shape.Polygon) item).getPoints().get(0),((javafx.scene.shape.Polygon) item).getPoints().get(1),
+								((javafx.scene.shape.Polygon) item).getPoints().get(2),((javafx.scene.shape.Polygon) item).getPoints().get(3),
+								((javafx.scene.shape.Polygon) item).getPoints().get(4),((javafx.scene.shape.Polygon) item).getPoints().get(5)};
+						((javafx.scene.shape.Polygon) item).getPoints().clear();
+						((javafx.scene.shape.Polygon) item).getPoints().setAll((Double [])newAction[2]);
 					}
 				}
 			}

@@ -20,7 +20,7 @@ public class Rectangle extends Polygon{
 		rectangle.setFill(color);
 		board.getChildren().add(rectangle);
 		rectangle.setOnMouseClicked(event->processAction(event));
-		rectangle.setOnMouseDragged(event->processAction(event));
+		rectangle.setOnMouseReleased(event->processAction(event));
 		ui.Controller.oldAction[1]="draw";
 	}
 
@@ -60,20 +60,4 @@ public class Rectangle extends Polygon{
 		rectangle.setWidth(width);
 		rectangle.setHeight(height);
 	}
-
-	@Override
-	public void processAction(MouseEvent event) {
-		switch(ui.Controller.state) {
-		case 0:
-			move(event);
-			break;
-		case 1:
-			resize(event);
-			break;
-		case 2:
-			changeColor(event);
-			break;
-		}
-	}
-
 }

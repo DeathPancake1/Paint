@@ -21,7 +21,7 @@ public class Circle extends Elliptical {
 		}
 		board.getChildren().add(circle);
 		circle.setOnMouseClicked(event->processAction(event));
-		circle.setOnMouseDragged(event->processAction(event));
+		circle.setOnMouseReleased(event->processAction(event));
 		ui.Controller.oldAction[1]="draw";
 	}
 
@@ -57,20 +57,6 @@ public class Circle extends Elliptical {
 		if(ui.Controller.selectedWidth<=350) {
 			radius=ui.Controller.selectedWidth;
 			circle.setRadius(radius);
-		}
-	}
-	@Override
-	public void processAction(MouseEvent event) {
-		switch(ui.Controller.state) {
-			case 0:
-				move(event);
-				break;
-			case 1:
-				resize(event);
-				break;
-			case 2:
-				changeColor(event);
-				break;
 		}
 	}
 }

@@ -20,13 +20,13 @@ public class Square extends Polygon{
 		square.setFill(color);
 		board.getChildren().add(square);
 		square.setOnMouseClicked(event->processAction(event));
-		square.setOnMouseDragged(event->processAction(event));
+		square.setOnMouseReleased(event->processAction(event));
 		ui.Controller.oldAction[1]="draw";
 	}
 
 	@Override
 	public void move(MouseEvent event) {
-		double posX,posY;
+		double posX=square.getX(),posY=square.getY();
 		posX=positionX;posY=positionY;
 		ui.Controller.oldAction[0]=square;
 		ui.Controller.oldAction[1]="move";
@@ -60,20 +60,4 @@ public class Square extends Polygon{
 		square.setWidth(width);
 		square.setHeight(height);
 	}
-
-	@Override
-	public void processAction(MouseEvent event) {
-		switch(ui.Controller.state) {
-		case 0:
-			move(event);
-			break;
-		case 1:
-			resize(event);
-			break;
-		case 2:
-			changeColor(event);
-			break;
-		}
-	}
-
 }

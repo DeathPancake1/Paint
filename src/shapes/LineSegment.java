@@ -20,18 +20,18 @@ public class LineSegment extends Polygon{
 		line.setStroke(color);
 		board.getChildren().add(line);
 		line.setOnMouseClicked(event->processAction(event));
-		line.setOnMouseDragged(event->processAction(event));
+		line.setOnMouseReleased(event->processAction(event));
 		ui.Controller.oldAction[1]="draw";
 	}
 
 	@Override
 	public void move(MouseEvent event) {
-		double posX,posY;
-		posX=positionX;posY=positionY;
 		ui.Controller.oldAction[0]=line;
 		ui.Controller.oldAction[1]="move";
-		ui.Controller.oldAction[2]= posX;
-		ui.Controller.oldAction[3]= posY;
+		ui.Controller.oldAction[2]= line.getStartX();
+		ui.Controller.oldAction[3]= line.getStartY();
+		ui.Controller.oldAction[4]= line.getEndX();
+		ui.Controller.oldAction[5]= line.getEndY();
 		if(event.getX()>width/2&&event.getX()<1000-width/2&&event.getY()<700&&event.getY()>0) {
 			line.setStartX(event.getX()-width/2);
 			line.setStartY(event.getY());
@@ -60,19 +60,5 @@ public class LineSegment extends Polygon{
 		width=ui.Controller.selectedWidth;
 		line.setStartX(line.getStartX()-width/2);
 		line.setEndX(line.getEndX()+width/2);
-	}
-	@Override
-	public void processAction(MouseEvent event) {
-		switch(ui.Controller.state) {
-			case 0:
-				move(event);
-				break;
-			case 1:
-				resize(event);
-				break;
-			case 2:
-				changeColor(event);
-				break;
-		}
 	}
 }
