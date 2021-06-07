@@ -26,6 +26,7 @@ public class Rectangle extends Polygon{
 
 	@Override
 	public void move(MouseEvent event) {
+		positionX=rectangle.getX();positionY=rectangle.getY();
 		double posX,posY;
 		posX=positionX;posY=positionY;
 		ui.Controller.oldAction[0]=rectangle;

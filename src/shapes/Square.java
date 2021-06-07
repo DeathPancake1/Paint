@@ -26,7 +26,8 @@ public class Square extends Polygon{
 
 	@Override
 	public void move(MouseEvent event) {
-		double posX=square.getX(),posY=square.getY();
+		positionX=square.getX();positionY=square.getY();
+		double posX,posY;
 		posX=positionX;posY=positionY;
 		ui.Controller.oldAction[0]=square;
 		ui.Controller.oldAction[1]="move";
