@@ -25,6 +25,7 @@ import java.util.List;
 import javafx.event.*;
 
 public class Controller{
+	//The array lists that hold the information about the objects on the screen to facilitate undo and redo
 	public static List<Node> current=new ArrayList<Node>();
 	public static List<Node> prev =new ArrayList<Node>();
 	@FXML
@@ -39,15 +40,16 @@ public class Controller{
 	private TextField width;
 	@FXML
 	private TextField height;
-	public static int selectedWidth;
-	public static int selectedHeight;
-	public static int state=0;
-	public static Color selectedColor=Color.WHITE;
-	public static Object[] oldAction=new Object[]{"","","","","",""};
-	public static Object[] newAction=new Object[] {"","","","","",""};
-	public static double oldX;
-	public static double oldY;
-	public static double newX,newY;
+	public static int selectedWidth;//The width that the user selected in the width text box
+	public static int selectedHeight;//The height that the user selected in the width text box
+	public static int state=0;//The state variable that is used to define what action the user wants to perform
+	public static Color selectedColor=Color.WHITE;//The color that the user selected in the color picker
+	public static Object[] oldAction=new Object[]{"","","","","",""}; //The array that is used to save the previous state of object before actions are performed
+	public static Object[] newAction=new Object[] {"","","","","",""};//The array that is used to save the current state of object before actions are undone
+	public static double oldX,oldY;//The variables used to save the previous state of X and Y parameters of objects
+	public static double newX,newY;//The variables used to save the current state of X and Y parameters of objects
+	//The function that processes a mouse action by the user into drawing a shape
+	//Uses Abstract Factory design pattern
 	@FXML
 	public void draw(MouseEvent e) {
 		boolean success=true;
@@ -105,6 +107,7 @@ public class Controller{
 		LineSegment line = new LineSegment(x,y,Integer.parseInt(width.getText()),colorPicker.getValue());
 		line.draw(board);
 	}
+	//The function that is invoked when a user presses a button to change the state of the program to perform the selected action
 	public void selectButton(ActionEvent event) {
 		String x=((Button) event.getSource()).getText();
 		move.setDisable(false);
@@ -156,9 +159,11 @@ public class Controller{
 			square.setDisable(true);
 		}
 	}
+	//The method that is used to update the selected color property
 	public void newColor(ActionEvent event) {
 		selectedColor=colorPicker.getValue();
 	}
+	//The method that is used to update the selected width property
 	@FXML
 	public void updateWidth() {
 		boolean success=true;
@@ -173,6 +178,7 @@ public class Controller{
 			selectedWidth=Integer.parseInt(width.getText());
 		}
 	}
+	//The method that is used to update the selected height property
 	@FXML
 	public void updateHeight() {
 		boolean success=true;
@@ -187,6 +193,7 @@ public class Controller{
 			selectedHeight=Integer.parseInt(height.getText());
 		}
 	}
+	//The undo function that is used to undo the last action that the user performed
 	public void undo(ActionEvent event) {
 		if(oldAction[1].equals("draw")&&!prev.isEmpty()) {
 			board.getChildren().setAll(prev);
@@ -296,6 +303,7 @@ public class Controller{
 			}
 		}
 	}
+	//The redo function that is used to undo the last action that the user undid
 	public void redo(ActionEvent event) {
 		if(newAction[1].equals("draw")&&!prev.isEmpty()) {
 			board.getChildren().setAll(prev);
